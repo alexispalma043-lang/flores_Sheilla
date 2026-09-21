@@ -1,0 +1,16 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Una sorpresa para Sheilla 🔐</title><link rel="stylesheet" href="estilos.css"></head><body class="inicio"><main class="lockscreen"><section class="lock-card"><div class="lock-icon">🔐🌻</div><div class="lock-tag">UNA SORPRESA PARA SHEILLA</div><h1>Para mi princesita 💛</h1><p id="status">Preparando tu jardín...</p><form id="unlock-form" action="/unlock" method="post" hidden><label for="pin">PIN especial</label><input id="pin" name="pin" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" required autocomplete="off" placeholder="••••"><button class="btn" type="submit">Abrir mi regalo 🌼</button><p id="error" role="status"></p></form><p class="lock-foot">Con mucho cariño · 21 de septiembre 💛</p></section></main><script>
+
+const target=1790003400000;
+const form=document.getElementById('unlock-form'),status=document.getElementById('status');
+function tick(){const remaining=Math.max(0,target-Date.now());if(!remaining){status.textContent='¡Llegó el momento! Introduce tu PIN para abrir el regalo. 🌻';form.hidden=false;return;}form.hidden=true;const h=Math.floor(remaining/3600000),m=Math.floor(remaining%3600000/60000),s=Math.floor(remaining%60000/1000);status.textContent='Se abre el 21 de septiembre a las 10:10 a. m. (Ecuador). Faltan '+h+' h '+m+' min '+s+' s.';}
+tick();setInterval(tick,1000);
+form.addEventListener('submit',e=>{
+e.preventDefault();
+const error=document.getElementById('error');
+if(Date.now()<target){error.textContent='Todavía no es la hora 💛';return;}
+if(document.getElementById('pin').value==='2603'){
+sessionStorage.setItem('sheilla-access','yes');
+location.href='inicio.html';
+}else{error.textContent='PIN incorrecto, mi princesita. Intenta otra vez 💛';}
+});
+</script></body></html>
